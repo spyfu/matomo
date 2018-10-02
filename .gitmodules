@@ -69,3 +69,6 @@
 	url = https://github.com/matomo-org/matomo-icons.git
 
 # Note: do not add new plugin submodules here, but a few lines above
+[submodule "plugins/Nacho"]
+	path = plugins/Nacho
+	url = https://github.com/spyfu/nacho-matomo.git
