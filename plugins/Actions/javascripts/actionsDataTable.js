@@ -351,6 +351,8 @@
                 });
 
             self.openSubtableFromSubtableIfOnlyOneSubtableGiven(response);
+
+            window.Nacho.showDataTableRowIcons();
         }
     });
 
