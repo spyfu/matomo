@@ -8,6 +8,7 @@ php_errors.log
 /composer.phar
 /config/config*
 /config/*.pem
+/config/manifest.inc.php
 /crossdomain.xml
 /documentation
 /docs/
