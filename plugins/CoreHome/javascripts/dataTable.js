@@ -237,7 +237,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             delete self.param.filter_offset;
             delete self.param.filter_limit;
         }
-	    
+
         delete self.param.showtitle;
 
         var container = $('#' + self.workingDivId + ' .piwik-graph');
@@ -629,10 +629,10 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         var tableRowLimits = piwik.config.datatable_row_limits,
         evolutionLimits =
         {
-            day: [8, 30, 60, 90, 180, 365, 500],
-            week: [4, 12, 26, 52, 104, 500],
-            month: [3, 6, 12, 24, 36, 120],
-            year: [3, 5, 10]
+            day: [1, 8, 30, 60, 90, 180, 365, 500],
+            week: [1, 4, 12, 26, 52, 104, 500],
+            month: [1, 3, 6, 12, 24, 36, 120],
+            year: [1, 3, 5, 10]
         };
 
         var self = this;
@@ -832,7 +832,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             $searchAction.find('.icon-search').off('click', searchForPattern);
 
             $searchInput.val('');
-            
+
             if (currentPattern) {
                 // we search for this pattern so if there was a search term before, and someone closes the search
                 // we show all results again
@@ -1546,7 +1546,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         $('th:has(.columnDocumentation)', domElem).each(function () {
             var th = $(this);
             var tooltip = th.find('.columnDocumentation');
-            
+
             tooltip.next().hover(function () {
                 var left = (-1 * tooltip.outerWidth() / 2) + th.width() / 2;
                 var top = -1 * tooltip.outerHeight();

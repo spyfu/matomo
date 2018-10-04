@@ -47,9 +47,9 @@ class Evolution extends JqplotGraph
         // period will be overridden when 'range' is requested in the UI
         // but the graph will display for each day of the range.
         // Default 'range' behavior is to return the 'sum' for the range
-        if (Common::getRequestVar('period', false) == 'range') {
+        // if (Common::getRequestVar('period', false) == 'range') {
             $this->requestConfig->request_parameters_to_modify['period'] = 'day';
-        }
+        // }
 
         $this->config->custom_parameters['columns'] = $this->config->columns_to_display;
     }
@@ -140,17 +140,7 @@ class Evolution extends JqplotGraph
      */
     public static function getDefaultLastN($period)
     {
-        switch ($period) {
-            case 'week':
-                return 26;
-            case 'month':
-                return 24;
-            case 'year':
-                return 5;
-            case 'day':
-            default:
-                return 30;
-        }
+        return 1;
     }
 
     /**
