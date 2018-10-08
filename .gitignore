@@ -70,3 +70,5 @@ php_errors.log
 /misc/vagrant
 /.vagrant
 /plugins/.gitignore
+
+misc/user/\.htaccess

@@ -512,7 +512,7 @@ multisites_refresh_after_seconds = 300
 
 ; by default, an update notification for a new version of Matomo is shown to every user. Set to 1 if only
 ; the superusers should see the notification.
-show_update_notification_to_superusers_only = 0
+show_update_notification_to_superusers_only = 1
 
 ; Set to 1 if you're using https on your Matomo server and Matomo can't detect it,
 ; e.g., a reverse proxy using https-to-http, or a web server that doesn't
@@ -695,7 +695,7 @@ debug = 0
 ; a debug=1 query parameter in the URL. All other HTTP requests will not have debug enabled. For security reasons this
 ; option should be only enabled if really needed and only for a short time frame. Otherwise anyone can set debug=1 and
 ; see the log output as well.
-debug_on_demand = 0
+debug_on_demand = 1
 
 ; This setting is described in this FAQ: https://matomo.org/faq/how-to/faq_175/
 ; Note: generally this should only be set to 1 in an intranet setting, where most users have the same configuration (browsers, OS)
