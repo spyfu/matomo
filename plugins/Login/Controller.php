@@ -176,6 +176,31 @@ class Controller extends \Piwik\Plugin\Controller
     }
 
     /**
+     * Form-less login with only token auth
+     * @see how to use it on http://piwik.org/faq/how-to/#faq_30
+     * @throws Exception
+     * @return void
+     */
+    function logmetoken()
+    {
+        $login = Common::getRequestVar('login', null, 'string');
+        if (Piwik::hasTheUserSuperUserAccess($login)) {
+            throw new Exception(Piwik::translate('Login_ExceptionInvalidSuperUserAccessAuthenticationMethod', array("logmetoken")));
+        }
+
+        $currentUrl = 'index.php';
+
+        if (($idSite = Common::getRequestVar('idSite', false, 'int')) !== false) {
+            $currentUrl .= '?idSite=' . $idSite;
+        }
+
+        $urlToRedirect = Common::getRequestVar('url', $currentUrl, 'string');
+        $urlToRedirect = Common::unsanitizeInputValue($urlToRedirect);
+
+        $this->authenticateAndRedirect($login, null, $urlToRedirect);
+    }
+
+    /**
      * Error message shown when an AJAX request has no access
      *
      * @param string $errorMessage
