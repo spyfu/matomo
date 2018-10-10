@@ -45,9 +45,9 @@
                             <!-- SF -->
                             <h6>Date Range:</h6>
                             <select
-                                ng-options="period as period.displayName for period in periodSelector.nachoPeriods"
-                                ng-model="periodSelector.selectedPeriod"
-                                ng-change="periodSelector.setNachoPeriodAndDate(periodSelector.selectedPeriod)"
+                                ng-options="period.displayName as period.displayName for period in periodSelector.nachoPeriods"
+                                ng-model="periodSelector.nachoSelectedPeriod"
+                                ng-change="periodSelector.setNachoPeriodAndDate(periodSelector.nachoSelectedPeriod)"
                                 style="display: inline-block; height: auto"
                             >
                             </select>

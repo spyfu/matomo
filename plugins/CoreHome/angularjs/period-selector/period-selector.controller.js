@@ -25,6 +25,7 @@
         vm.dateValue = null;
 
         vm.selectedPeriod = null;
+        vm.nachoSelectedPeriod = null;
 
         vm.startRangeDate = null;
         vm.endRangeDate = null;
@@ -43,38 +44,38 @@
         vm.isApplyEnabled = isApplyEnabled;
         vm.$onInit = init;
         vm.setNachoPeriodAndDate = setNachoPeriodAndDate;
-        vm.nachoPeriods = {
-            today: {
+        vm.nachoPeriods = [
+            {
                 displayName: 'today',
                 period: 'day',
                 date: piwikMaxDate,
             },
-            yesterday: {
+            {
                 displayName: 'yesterday',
                 period: 'day',
                 date: yesterday
             },
-            lastMonth: {
+            {
                 displayName: 'last month',
                 period: 'month',
                 date: lastMonth
             },
-            'last 7 days': {
+            {
                 displayName: 'last 7 days',
                 period: 'range',
                 date: last7
             },
-            'last 30 days': {
+            {
                 displayName: 'last 30 days',
                 period: 'month',
                 date: piwikMaxDate
             },
-            custom: {
+            {
                 displayName: 'custom',
                 period: 'range',
                 date: piwikMaxDate
             }
-        }
+        ]
 
         function init() {
             vm.updateSelectedValuesFromHash();
@@ -212,10 +213,12 @@
             setRangeStartEndFromPeriod(period, currentDateString);
 
             propagateNewUrlParams(currentDateString, vm.selectedPeriod);
+            vm.selectedPeriod = nachoPeriods.today;
             initTopControls();
         }
 
-        function setNachoPeriodAndDate(nachoPeriod) {
+        function setNachoPeriodAndDate(displayName) {
+            var nachoPeriod = vm.nachoPeriods.find(function(np){ return np.displayName === displayName })
             var period = nachoPeriod.period;
             if (nachoPeriod.displayName === 'custom') {
                 vm.selectedPeriod = nachoPeriod.period;
