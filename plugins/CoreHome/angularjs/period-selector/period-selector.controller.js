@@ -16,6 +16,7 @@
             yesterday = new Date(piwik.maxDateYear, piwik.maxDateMonth - 1, piwik.maxDateDay - 1),
             last7 = new Date(piwik.maxDateYear, piwik.maxDateMonth - 1, piwik.maxDateDay - 7),
             lastMonth = new Date(piwik.maxDateYear, piwik.maxDateMonth - 2, piwik.maxDateDay - 1);
+            last30 = new Date(piwik.maxDateYear, piwik.maxDateMonth - 1, piwik.maxDateDay - 30);
 
 
         var vm = this;
@@ -67,8 +68,8 @@
             },
             {
                 displayName: 'last 30 days',
-                period: 'month',
-                date: piwikMaxDate
+                period: 'range',
+                date: last30
             },
             {
                 displayName: 'custom',
@@ -222,26 +223,36 @@
             var period = nachoPeriod.period;
             if (nachoPeriod.displayName === 'custom') {
                 vm.selectedPeriod = nachoPeriod.period;
-                return;
+            } else if (nachoPeriod.displayName === 'last 7 days' || nachoPeriod.displayName === 'last 30 days') {
+                setNachoDateRange(displayName, nachoPeriod);
+            } else {
+                date = nachoPeriod.date;
+                vm.periodValue = period;
+                vm.selectedPeriod = period;
+                vm.dateValue = date;
+
+                var currentDateString = formatDate(date);
+
+                setRangeStartEndFromPeriod(period, currentDateString);
+
+                propagateNewUrlParams(currentDateString, vm.selectedPeriod);
+                initTopControls();
             }
-            if (nachoPeriod.displayName === 'last 7 days') {
-                vm.selectedPeriod = nachoPeriod.period;
-                vm.startRangeDate = formatDate(last7);
-                vm.endRangeDate = formatDate(piwikMaxDate);
-                onApplyClicked();
-                return;
+        }
+
+        function setNachoDateRange(displayName, nachoPeriod) {
+            var startDate = '';
+            if (displayName === 'last 7 days') {
+                startDate = last7;
             }
-            date = nachoPeriod.date;
-            vm.periodValue = period;
-            vm.selectedPeriod = period;
-            vm.dateValue = date;
-
-            var currentDateString = formatDate(date);
-
-            setRangeStartEndFromPeriod(period, currentDateString);
-
-            propagateNewUrlParams(currentDateString, vm.selectedPeriod);
-            initTopControls();
+            if (displayName === 'last 30 days') {
+                startDate = last30;
+            }
+            vm.selectedPeriod = nachoPeriod.period;
+            vm.startRangeDate = formatDate(startDate);
+            vm.endRangeDate = formatDate(piwikMaxDate);
+            onApplyClicked();
+            return;
         }
 
         function setRangeStartEndFromPeriod(period, dateStr) {
