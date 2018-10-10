@@ -25,7 +25,7 @@
         vm.dateValue = null;
 
         vm.selectedPeriod = null;
-        vm.nachoSelectedPeriod = null;
+        vm.nachoSelectedPeriod = 'custom';
 
         vm.startRangeDate = null;
         vm.endRangeDate = null;
