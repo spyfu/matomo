@@ -70,7 +70,6 @@
             }
             self.applyCosmetics(domElem, rows);
             self.handleColumnHighlighting(domElem);
-            self.handleRowActions(domElem, rows);
             self.handleLimit(domElem);
             self.handleAnnotationsButton(domElem);
             self.handleExportBox(domElem);
@@ -90,6 +89,7 @@
             self.handleTriggeredEvents(domElem);
             self.handleCellTooltips(domElem);
             self.setFixWidthToMakeEllipsisWork(domElem);
+            self.handleRowActions(domElem, rows);
             self.handleSummaryRow(domElem);
             self.openSubtableFromLevel0IfOnlyOneSubtableGiven(domElem);
             self.postBindEventsAndApplyStyleHook(domElem, rows);
@@ -351,8 +351,6 @@
                 });
 
             self.openSubtableFromSubtableIfOnlyOneSubtableGiven(response);
-
-            window.Nacho.showDataTableRowIcons();
         }
     });
 

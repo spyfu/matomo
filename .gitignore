@@ -18,10 +18,6 @@ php_errors.log
 /misc/*.dat.gz
 /misc/*.tar.gz
 /misc/*.mmdb
-/misc/user/logo-header.png
-/misc/user/logo.png
-/misc/user/logo.svg
-/misc/user/favicon.png
 /piwik-min.js
 /plugins/*.zip
 /plugins/ImageGraph/fonts/unifont.ttf
@@ -70,3 +66,5 @@ php_errors.log
 /misc/vagrant
 /.vagrant
 /plugins/.gitignore
+
+misc/user/\.htaccess

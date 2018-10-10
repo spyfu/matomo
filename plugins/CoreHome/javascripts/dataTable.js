@@ -345,12 +345,12 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         self.handleConfigurationBox(domElem);
         self.handleSearchBox(domElem);
         self.handleColumnDocumentation(domElem);
-        self.handleRowActions(domElem);
 		self.handleCellTooltips(domElem);
         self.handleRelatedReports(domElem);
         self.handleTriggeredEvents(domElem);
         self.handleColumnHighlighting(domElem);
         self.setFixWidthToMakeEllipsisWork(domElem);
+        self.handleRowActions(domElem);
         self.handleSummaryRow(domElem);
         self.postBindEventsAndApplyStyleHook(domElem);
     },
@@ -1522,10 +1522,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                     self.loadedSubDataTable[divIdToReplaceWithSubTable] = true;
 
                     $(this).next().toggle();
-
-                    // when "loading..." is displayed, hide actions
-                    // repositioning after loading is not easily possible
-                    $(this).find('div.dataTableRowActions').hide();
                 }
 
                 $(this).next().toggle();
@@ -1771,47 +1767,10 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             // if there are row actions, make sure the first column is not too narrow
             td.css('minWidth', '145px');
 
-            // show actions that are available for the row on hover
-            var actionsDom = null;
-
-            var useTouchEvent = false;
-            var listenEvent = 'mouseenter';
-            var userAgent = String(navigator.userAgent).toLowerCase();
-            if (userAgent.match(/(iPod|iPhone|iPad|Android|IEMobile|Windows Phone)/i)) {
-                useTouchEvent = true;
-                listenEvent = 'click';
-            }
-
-            tr.on(listenEvent, function () {
-                if (useTouchEvent && actionsDom && actionsDom.prop('rowActionsVisible')) {
-                    actionsDom.prop('rowActionsVisible', false);
-                    actionsDom.hide();
-                    return;
-                }
-
-                if (actionsDom === null) {
-                    // create dom nodes on the fly
-                    actionsDom = self.createRowActions(availableActionsForReport, tr, actionInstances);
-                    td.prepend(actionsDom);
-                }
-
-                // reposition and show the actions
-                self.repositionRowActions(tr);
-                if ($(window).width() >= 600 || useTouchEvent) {
-                    actionsDom.show();
-                }
-
-                if (useTouchEvent) {
-                    actionsDom.prop('rowActionsVisible', true);
-                }
-            });
-            if (!useTouchEvent) {
-                tr.on('mouseleave', function () {
-                    if (actionsDom !== null) {
-                        actionsDom.hide();
-                    }
-                });
-            }
+            // show actions that are available for the row
+            var actionsDom = self.createRowActions(availableActionsForReport, tr, actionInstances);
+            td.prepend(actionsDom);
+            self.repositionRowActions(tr)
         });
     },
 
@@ -1845,7 +1804,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             actionEl.click((function (action, el) {
                 return function (e) {
                     $(this).blur().tooltip('close');
-                    container.hide();
                     if (typeof actionInstances[action.name].onClick == 'function') {
                         return actionInstances[action.name].onClick(el, tr, e);
                     }
