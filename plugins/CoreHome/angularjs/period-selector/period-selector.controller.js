@@ -12,7 +12,11 @@
 
     function PeriodSelectorController(piwik, $location, piwikPeriods) {
         var piwikMinDate = new Date(piwik.minDateYear, piwik.minDateMonth - 1, piwik.minDateDay),
-            piwikMaxDate = new Date(piwik.maxDateYear, piwik.maxDateMonth - 1, piwik.maxDateDay);
+            piwikMaxDate = new Date(piwik.maxDateYear, piwik.maxDateMonth - 1, piwik.maxDateDay),
+            yesterday = new Date(piwik.maxDateYear, piwik.maxDateMonth - 1, piwik.maxDateDay - 1),
+            last7 = new Date(piwik.maxDateYear, piwik.maxDateMonth - 1, piwik.maxDateDay - 7),
+            lastMonth = new Date(piwik.maxDateYear, piwik.maxDateMonth - 2, piwik.maxDateDay - 1);
+
 
         var vm = this;
 
@@ -38,6 +42,39 @@
         vm.onRangeChange = onRangeChange;
         vm.isApplyEnabled = isApplyEnabled;
         vm.$onInit = init;
+        vm.setNachoPeriodAndDate = setNachoPeriodAndDate;
+        vm.nachoPeriods = {
+            today: {
+                displayName: 'today',
+                period: 'day',
+                date: piwikMaxDate,
+            },
+            yesterday: {
+                displayName: 'yesterday',
+                period: 'day',
+                date: yesterday
+            },
+            lastMonth: {
+                displayName: 'last month',
+                period: 'month',
+                date: lastMonth
+            },
+            'last 7 days': {
+                displayName: 'last 7 days',
+                period: 'range',
+                date: last7
+            },
+            'last 30 days': {
+                displayName: 'last 30 days',
+                period: 'month',
+                date: piwikMaxDate
+            },
+            custom: {
+                displayName: 'custom',
+                period: 'range',
+                date: piwikMaxDate
+            }
+        }
 
         function init() {
             vm.updateSelectedValuesFromHash();
@@ -172,6 +209,32 @@
             vm.dateValue = date;
 
             var currentDateString = formatDate(date);
+            setRangeStartEndFromPeriod(period, currentDateString);
+
+            propagateNewUrlParams(currentDateString, vm.selectedPeriod);
+            initTopControls();
+        }
+
+        function setNachoPeriodAndDate(nachoPeriod) {
+            var period = nachoPeriod.period;
+            if (nachoPeriod.displayName === 'custom') {
+                vm.selectedPeriod = nachoPeriod.period;
+                return;
+            }
+            if (nachoPeriod.displayName === 'last 7 days') {
+                vm.selectedPeriod = nachoPeriod.period;
+                vm.startRangeDate = formatDate(last7);
+                vm.endRangeDate = formatDate(piwikMaxDate);
+                onApplyClicked();
+                return;
+            }
+            date = nachoPeriod.date;
+            vm.periodValue = period;
+            vm.selectedPeriod = period;
+            vm.dateValue = date;
+
+            var currentDateString = formatDate(date);
+
             setRangeStartEndFromPeriod(period, currentDateString);
 
             propagateNewUrlParams(currentDateString, vm.selectedPeriod);

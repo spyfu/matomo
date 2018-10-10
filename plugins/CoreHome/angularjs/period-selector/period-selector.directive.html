@@ -16,7 +16,7 @@
             <tr>
                 <td>
                     <piwik-date-range-picker
-                        ng-show="periodSelector.selectedPeriod === 'range'"
+                        ng-show="periodSelector.selectedPeriod === 'range' || periodSelector.selectedPeriod.period === 'range'"
                         class="period-range"
                         start-date="periodSelector.startRangeDate"
                         end-date="periodSelector.endRangeDate"
@@ -26,7 +26,7 @@
                     </piwik-date-range-picker>
                     <div
                         class="period-date"
-                        ng-show="periodSelector.selectedPeriod !== 'range'"
+                        ng-show="periodSelector.selectedPeriod !== 'range' && periodSelector.selectedPeriod.period != 'range'"
                     >
                         <piwik-period-date-picker
                             id="datepicker"
@@ -39,9 +39,21 @@
                 </td>
                 <td>
                     <div class="period-type">
-                        <h6>{{ 'General_Period'|translate }}</h6>
+                        <h6 style="display: none">{{ 'General_Period'|translate }}</h6>
                         <div id="otherPeriods">
-                            <p ng-repeat="period in periodSelector.periods">
+
+                            <!-- SF -->
+                            <h6>Date Range:</h6>
+                            <select
+                                ng-options="period as period.displayName for period in periodSelector.nachoPeriods"
+                                ng-model="periodSelector.selectedPeriod"
+                                ng-change="periodSelector.setNachoPeriodAndDate(periodSelector.selectedPeriod)"
+                                style="display: inline-block; height: auto"
+                            >
+                            </select>
+                            <!-- /SF -->
+
+                            <p ng-repeat="period in periodSelector.periods" style="display: none">
                                 <input
                                     type="radio"
                                     name="period"
