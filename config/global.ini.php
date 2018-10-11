@@ -328,7 +328,7 @@ time_before_range_archive_considered_outdated = -1
 ; This setting is overriden in the UI, under "General Settings".
 ; The default value is to allow browsers to trigger the Matomo archiving process.
 ; This setting is only used if it hasn't been overridden via the UI yet, or if enable_general_settings_admin=0
-enable_browser_archiving_triggering = 1
+enable_browser_archiving_triggering = 0
 
 ; By default, Matomo will force archiving of range periods from browser requests, even if enable_browser_archiving_triggering
 ; is set to 0. This can sometimes create too much of a demand on system resources. Setting this option to 0 and
@@ -356,7 +356,7 @@ minimum_pgsql_version = 8.3
 
 ; Minimum advised memory limit in Mb in php.ini file (see memory_limit value)
 ; Set to "-1" to always use the configured memory_limit value in php.ini file.
-minimum_memory_limit = 128
+minimum_memory_limit = -1
 
 ; Minimum memory limit in Mb enforced when archived via ./console core:archive
 ; Set to "-1" to always use the configured memory_limit value in php.ini file.
@@ -403,7 +403,7 @@ login_password_recovery_replyto_email_address = "no-reply@{DOMAIN}"
 login_password_recovery_replyto_email_name = "No-reply"
 
 ; When configured, only users from a configured IP can log into your Matomo. You can define one or multiple
-; IPv4, IPv6, and IP ranges. You may also define hostnames. However, resolving hostnames in each request 
+; IPv4, IPv6, and IP ranges. You may also define hostnames. However, resolving hostnames in each request
 ; may slightly slow down your Matomo.
 ; This whitelist also affects API requests unless you disabled it via the setting
 ; "login_whitelist_apply_to_reporting_api_requests" below. Note that neither this setting, nor the
@@ -500,11 +500,11 @@ live_widget_refresh_after_seconds = 5
 ; by default, the Live! real time visitor count widget will check to see how many visitors your
 ; website received in the last 3 minutes. changing this value will change the number of minutes
 ; the widget looks in.
-live_widget_visitor_count_last_minutes = 3
+live_widget_visitor_count_last_minutes = 30
 
 ; by default visitor profile will show aggregated information for the last up to 100 visits of a visitor
 ; this limit can be adjusted by changing this value
-live_visitor_profile_max_visits_to_aggregate = 100
+live_visitor_profile_max_visits_to_aggregate = 1000
 
 ; In "All Websites" dashboard, when looking at today's reports (or a date range including today),
 ; the page will automatically refresh every 5 minutes. Set to 0 to disable automatic refresh
@@ -557,7 +557,7 @@ proxy_uri_header = 0
 
 ; Whether to enable trusted host checking. This can be disabled if you're running Matomo
 ; on several URLs and do not wish to constantly edit the trusted host list.
-enable_trusted_host_check = 1
+enable_trusted_host_check = 0
 
 ; List of trusted hosts (eg domain or subdomain names) when generating absolute URLs.
 ;
@@ -649,11 +649,11 @@ enable_general_settings_admin = 1
 enable_internet_features = 1
 
 ; By setting this option to 0, it will disable the "Auto update" feature
-enable_auto_update = 1
+enable_auto_update = 0
 
 ; By setting this option to 0, no emails will be sent in case of an available core.
 ; If set to 0 it also disables the "sent plugin update emails" feature in general and the related setting in the UI.
-enable_update_communication = 1
+enable_update_communication = 0
 
 
 
@@ -672,7 +672,7 @@ pivot_by_filter_enable_fetch_by_segment = 0
 pivot_by_filter_default_column_limit = 10
 
 ; If set to 0 it will disable advertisements for providers of Professional Support for Matomo.
-piwik_professional_support_ads_enabled = 1
+piwik_professional_support_ads_enabled = 0
 
 [Tracker]
 
