@@ -116,12 +116,40 @@
             });
         }
 
+        function getNachoSelectedPeriodFromHash(hashDate, hashPeriod) {
+            if (hashPeriod === 'day') {
+                if (hashDate === 'today' || hashDate === formatDate(piwikMaxDate)) {
+                    return 'today'
+                } else if (date === 'yesterday' || hashDate === formatDate(yesterday)) {
+                    return 'yesterday'
+                } else {
+                    console.error('Cannot parse hash date for Nacho calendar presets')
+                }
+            } else if (hashPeriod === 'month') {
+                return 'last month'
+            } else if (hashPeriod === 'range') {
+                var strLast7 = formatDate(last7) + ',' + formatDate(piwikMaxDate)
+                var strLast30 = formatDate(last30) + ',' + formatDate(piwikMaxDate)
+                if (hashDate === strLast7) {
+                    return 'last 7 days'
+                } else if (hashDate === strLast30) {
+                    return 'last 30 days'
+                } else {
+                    return 'custom'
+                }
+            } else {
+                console.error('Cannot parse hash period for Nacho calendar presets')
+            }
+        }
+
         function updateSelectedValuesFromHash() {
             var strDate = getQueryParamValue('date');
             var strPeriod = getQueryParamValue('period');
 
             vm.periodValue = strPeriod;
             vm.selectedPeriod = strPeriod;
+            vm.nachoSelectedPeriod = getNachoSelectedPeriodFromHash(strDate, strPeriod);
+
 
             vm.dateValue = vm.startRangeDate = vm.endRangeDate = null;
 
