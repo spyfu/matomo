@@ -26,7 +26,7 @@
                     </piwik-date-range-picker>
                     <div
                         class="period-date"
-                        ng-show="periodSelector.selectedPeriod !== 'range' && periodSelector.selectedPeriod.period != 'range'"
+                        ng-show="periodSelector.selectedPeriod !== 'range'"
                     >
                         <piwik-period-date-picker
                             id="datepicker"
@@ -52,27 +52,6 @@
                             >
                             </select>
                             <!-- /SF -->
-
-                            <p ng-repeat="period in periodSelector.periods" style="display: none">
-                                <input
-                                    type="radio"
-                                    name="period"
-                                    ng-attr-id="period_id_{{ period }}"
-                                    ng-model="periodSelector.selectedPeriod"
-                                    ng-value="period"
-                                    ng-change="periodSelector.selectedPeriod = period"
-                                    ng-dblclick="periodSelector.changeViewedPeriod(period)"
-                                />
-
-                                <label
-                                    ng-attr-for="period_id_{{ period }}"
-                                    ng-attr-title="{{ period === periodSelector.periodValue ? '' : ('General_DoubleClickToChangePeriod'|translate) }}"
-                                    ng-class="{'selected-period-label': period === periodSelector.selectedPeriod}"
-                                    ng-dblclick="periodSelector.changeViewedPeriod(period)"
-                                >
-                                    {{ periodSelector.getPeriodDisplayText(period) }}
-                                </label>
-                            </p>
                         </div>
                         <input
                             type="submit"

@@ -242,21 +242,19 @@
             setRangeStartEndFromPeriod(period, currentDateString);
 
             propagateNewUrlParams(currentDateString, vm.selectedPeriod);
-            vm.selectedPeriod = nachoPeriods.today;
             initTopControls();
         }
 
         function setNachoPeriodAndDate(displayName) {
             var nachoPeriod = vm.nachoPeriods.find(function(np){ return np.displayName === displayName })
             var period = nachoPeriod.period;
+            vm.selectedPeriod = period;
             if (nachoPeriod.displayName === 'custom') {
-                vm.selectedPeriod = nachoPeriod.period;
             } else if (nachoPeriod.displayName === 'last 7 days' || nachoPeriod.displayName === 'last 30 days') {
                 setNachoDateRange(displayName, nachoPeriod);
             } else {
                 date = nachoPeriod.date;
                 vm.periodValue = period;
-                vm.selectedPeriod = period;
                 vm.dateValue = date;
 
                 var currentDateString = formatDate(date);
