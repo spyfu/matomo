@@ -295,9 +295,8 @@ class Plugins
             return $plugin;
         }
 
-        $isPremiumFeature = !empty($plugin['shop']) && empty($plugin['isFree']) && empty($plugin['isDownloadable']);
-        $plugin['hasExceededLicense'] = $isPremiumFeature && !empty($plugin['consumer']['license']['isValid']) && !empty($plugin['consumer']['license']['isExceeded']);
-        $plugin['isMissingLicense'] = $isPremiumFeature && (empty($plugin['consumer']['license']) || (!empty($plugin['consumer']['license']['status']) && $plugin['consumer']['license']['status'] === 'Cancelled'));
+        $plugin['hasExceededLicense'] = false;
+        $plugin['isMissingLicense'] = false;
 
         return $plugin;
     }

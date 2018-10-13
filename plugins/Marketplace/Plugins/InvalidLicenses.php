@@ -181,6 +181,8 @@ class InvalidLicenses
             'noLicense' => array()
         );
 
+        return $pluginNames;
+
         try {
             $paidPlugins = $this->plugins->getAllPaidPlugins();
         } catch (\Exception $e) {
