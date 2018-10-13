@@ -15,15 +15,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * plugin:activate console command.
+ * plugin:install console command.
  */
-class ActivatePlugin extends ConsoleCommand
+class InstallPlugin extends ConsoleCommand
 {
     protected function configure()
     {
-        $this->setName('plugin:activate');
-        $this->setDescription('Activate a plugin.');
-        $this->addArgument('plugin', InputArgument::IS_ARRAY, 'The plugin name you want to activate. Multiple plugin names can be specified separated by a space.');
+        $this->setName('plugin:install');
+        $this->setDescription('Install a plugin.');
+        $this->addArgument('plugin', InputArgument::IS_ARRAY, 'The plugin name you want to install. Multiple plugin names can be specified separated by a space.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -33,8 +33,8 @@ class ActivatePlugin extends ConsoleCommand
         $plugins = $input->getArgument('plugin');
 
         foreach ($plugins as $plugin) {
-            if ($pluginManager->isPluginActivated($plugin)) {
-                $output->writeln(sprintf('<comment>The plugin %s is already activated.</comment>', $plugin));
+            if ($pluginManager->isPluginInstalled($plugin)) {
+                $output->writeln(sprintf('<comment>The plugin %s is already installed.</comment>', $plugin));
                 continue;
             }
 
@@ -43,9 +43,9 @@ class ActivatePlugin extends ConsoleCommand
                 continue;
             }
 
-            $pluginManager->activatePlugin($plugin);
-
-            $output->writeln("Activated plugin <info>$plugin</info>");
+            $output->writeln("Installed plugin <info>$plugin</info>");
         }
+
+        $pluginManager->installLoadedPlugins();
     }
 }
