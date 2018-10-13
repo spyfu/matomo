@@ -925,7 +925,6 @@ Plugins[] = Marketplace
 Plugins[] = ProfessionalServices
 Plugins[] = UserId
 Plugins[] = CustomPiwikJs
-Plugins[] = InvalidateReports
 
 [PluginsInstalled]
 PluginsInstalled[] = Diagnostics
@@ -936,7 +935,6 @@ PluginsInstalled[] = SitesManager
 PluginsInstalled[] = Installation
 PluginsInstalled[] = Monolog
 PluginsInstalled[] = Intl
-PluginsInstalled[] = InvalidateReports
 
 [APISettings]
 ; Any key/value pair can be added in this section, they will be available via the REST call
