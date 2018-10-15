@@ -120,7 +120,7 @@
             if (hashPeriod === 'day') {
                 if (hashDate === 'today' || hashDate === formatDate(piwikMaxDate)) {
                     return 'today'
-                } else if (date === 'yesterday' || hashDate === formatDate(yesterday)) {
+                } else if (hashDate === 'yesterday' || hashDate === formatDate(yesterday)) {
                     return 'yesterday'
                 } else {
                     console.error('Cannot parse hash date for Nacho calendar presets')
@@ -249,6 +249,7 @@
             var nachoPeriod = vm.nachoPeriods.find(function(np){ return np.displayName === displayName })
             var period = nachoPeriod.period;
             vm.selectedPeriod = period;
+
             if (nachoPeriod.displayName === 'custom') {
             } else if (nachoPeriod.displayName === 'last 7 days' || nachoPeriod.displayName === 'last 30 days') {
                 setNachoDateRange(displayName, nachoPeriod);
