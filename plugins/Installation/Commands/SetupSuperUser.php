@@ -10,6 +10,7 @@ namespace Piwik\Plugins\Installation\Commands;
 
 use Piwik\Access;
 use Piwik\Common;
+use Piwik\Config;
 use Piwik\Plugin\ConsoleCommand;
 use Piwik\Plugins\Installation\Controller;
 use Piwik\Plugins\Installation\FormSuperUser;
@@ -61,6 +62,15 @@ class SetupSuperUser extends ConsoleCommand
                 $form->getSubmitValue('email'));
 
             $output->writeln("Super User created");
+
+            // Token Auth setup
+            $superUserTokenAuth = APIUsersManager::getInstance()->getTokenAuth($form->getSubmitValue('login'),
+                md5($form->getSubmitValue('password')));
+            $config = Config::getInstance();
+            $config->General['salt'] = $superUserTokenAuth;
+            $config->forceSave();
+
+            $output->writeln("Salt updated using Super User token auth");
         } catch (Exception $e) {
             $output->writeln(Common::sanitizeInputValue($e->getMessage()));
             return;
