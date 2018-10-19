@@ -549,7 +549,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     /**
      * Write configuration file from session-store
      */
-    private function createConfigFile($dbInfos)
+    public function createConfigFile($dbInfos)
     {
         $config = Config::getInstance();
 
@@ -618,7 +618,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     /**
      * Write configuration file from session-store
      */
-    private function markInstallationAsCompleted()
+    public function markInstallationAsCompleted()
     {
         $config = Config::getInstance();
         unset($config->General['installation_in_progress']);
@@ -631,7 +631,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      * @param string $currentStep Current step
      * @return void
      */
-    private function redirectToNextStep($currentStep, $parameters = array())
+    public function redirectToNextStep($currentStep, $parameters = array())
     {
         $steps = array_keys($this->steps);
         $nextStep = $steps[1 + array_search($currentStep, $steps)];
@@ -658,7 +658,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     /**
      * Add trusted hosts
      */
-    private function addTrustedHosts($siteUrl)
+    public function addTrustedHosts($siteUrl)
     {
         $trustedHosts = array();
 
@@ -683,7 +683,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         }
     }
 
-    private function createSuperUser($login, $password, $email)
+    public function createSuperUser($login, $password, $email)
     {
         $self = $this;
         Access::doAsSuperUser(function () use ($self, $login, $password, $email) {
@@ -724,7 +724,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      * @param $newsletterPiwikORG
      * @param $newsletterProfessionalServices
      */
-    protected function registerNewsletter($email, $newsletterPiwikORG, $newsletterProfessionalServices)
+    public function registerNewsletter($email, $newsletterPiwikORG, $newsletterProfessionalServices)
     {
         $url = Config::getInstance()->General['api_service_url'];
         $url .= '/1.0/subscribeNewsletter/';
@@ -756,7 +756,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     /**
      * @return array|bool
      */
-    protected function updateComponents()
+    public function updateComponents()
     {
         Access::getInstance();
 
