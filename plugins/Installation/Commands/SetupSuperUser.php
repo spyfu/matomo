@@ -69,6 +69,7 @@ class SetupSuperUser extends ConsoleCommand
             $config = Config::getInstance();
             $config->General['salt'] = $superUserTokenAuth;
             $config->forceSave();
+            $controller->resetLanguageCookie();
 
             $output->writeln("Salt updated using Super User token auth");
         } catch (Exception $e) {

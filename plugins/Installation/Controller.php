@@ -590,7 +590,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $this->resetLanguageCookie();
     }
 
-    private function resetLanguageCookie()
+    public function resetLanguageCookie()
     {
         /** @var Translator $translator */
         $translator = StaticContainer::get('Piwik\Translation\Translator');
