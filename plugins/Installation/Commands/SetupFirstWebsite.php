@@ -70,7 +70,6 @@ class SetupFirstWebsite extends ConsoleCommand
                     null, null, null, null, $timezone);
             });
             $controller->addTrustedHosts($url);
-
             $output->writeln("First Website created");
         } catch (Exception $e) {
             $output->writeln(Common::sanitizeInputValue($e->getMessage()));

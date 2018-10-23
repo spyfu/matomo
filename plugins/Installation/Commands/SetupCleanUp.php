@@ -54,7 +54,6 @@ class SetupCleanUp extends ConsoleCommand
              */
             Piwik::postEvent('Installation.defaultSettingsForm.submit', array($form));
             $controller->markInstallationAsCompleted();
-
             $output->writeln("Matomo installation cleaned up");
         } catch (Exception $e) {
             $output->writeln(Common::sanitizeInputValue($e->getMessage()));

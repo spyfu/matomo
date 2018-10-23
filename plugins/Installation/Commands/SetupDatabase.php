@@ -53,16 +53,15 @@ class SetupDatabase extends ConsoleCommand
         try {
             // Database setup
             $dbInfos = $form->createDatabaseObject();
-
             $output->writeln("DB Created");
 
+            // Database check
             DbHelper::checkDatabaseVersion();
             Db::get()->checkClientVersion();
-
             $output->writeln("DB Checked");
 
+            // Config setup
             $controller->createConfigFile($dbInfos);
-
             $output->writeln("Created Config File");
 
             // Tables setup
@@ -73,9 +72,9 @@ class SetupDatabase extends ConsoleCommand
 
             DbHelper::createTables();
             DbHelper::createAnonymousUser();
-
             $output->writeln("Created Tables");
 
+            // Components setup
             $controller->updateComponents();
             Updater::recordComponentSuccessfullyUpdated('core', Version::VERSION);
         } catch (Exception $e) {

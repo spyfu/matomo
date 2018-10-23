@@ -55,22 +55,26 @@ class SetupSuperUser extends ConsoleCommand
         $form = new FormSuperUser();
         $controller = new Controller();
 
+        // Fetch parameters
+        $login = $form->getSubmitValue('login');
+        $password = $form->getSubmitValue('password');
+        $email = $form->getSubmitValue('email');
+
         try {
             // Super User setup
-            $controller->createSuperUser($form->getSubmitValue('login'),
-                $form->getSubmitValue('password'),
-                $form->getSubmitValue('email'));
-
+            $controller->createSuperUser($login, $password, $email);
             $output->writeln("Super User created");
 
             // Token Auth setup
-            $superUserTokenAuth = APIUsersManager::getInstance()->getTokenAuth($form->getSubmitValue('login'),
-                md5($form->getSubmitValue('password')));
+            $superUserTokenAuth = APIUsersManager::getInstance()->getTokenAuth($login, md5($password));
             $config = Config::getInstance();
             $config->General['salt'] = $superUserTokenAuth;
             $config->forceSave();
-            $controller->resetLanguageCookie();
+            $output->writeln("Token Auth set");
 
+            // Re-hash Super User password because of the salt change
+            APIUsersManager::getInstance()->updateUser($login, $password);
+            $controller->resetLanguageCookie();
             $output->writeln("Salt updated using Super User token auth");
         } catch (Exception $e) {
             $output->writeln(Common::sanitizeInputValue($e->getMessage()));
