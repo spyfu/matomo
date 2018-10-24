@@ -13,6 +13,7 @@ use Piwik\Tracker\RequestSet;
 use Piwik\Tracker;
 use Piwik\Tracker\Handler;
 use Piwik\API\CORSHandler;
+use Piwik\Config;
 
 @ignore_user_abort(true);
 
@@ -72,6 +73,16 @@ $requestSet = new RequestSet();
 ob_start();
 
 try {
+    // NACHO ESPECIAL
+    // checks for alternate database host/name in request.
+    $requestBody = json_decode(file_get_contents("php://input"));
+    if(!is_null($requestBody->dbhost) && !is_null($requestBody->dbname)) {
+        Config::getInstance()->database["host"] = $requestBody->dbhost;
+        Config::getInstance()->database["dbname"] = $requestBody->dbname;
+        Config::getInstance()->database["username"] = getenv("MatomoDBUser");
+        Config::getInstance()->database["password"] = getenv("MatomoDBPass");
+    }
+
     $handler  = Handler\Factory::make();
     $response = $tracker->main($handler, $requestSet);
 
