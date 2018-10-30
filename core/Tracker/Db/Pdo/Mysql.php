@@ -89,6 +89,10 @@ class Mysql extends Db
         $this->connection = null;
     }
 
+    public function getDsn()
+    {
+        return $this->dsn;
+    }
     /**
      * Connects to the DB
      *

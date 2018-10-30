@@ -28,6 +28,22 @@ class RequestSet
      * @var string
      */
     private $tokenAuth = null;
+    
+    /**
+     * The dbhost supplied with a bulk visits POST.
+     * This will override the configured target database host.
+     * 
+     * @var string
+     */
+    private $dbhost = null;
+
+    /**
+     * The dbname supplied with a bulk visits POST.
+     * This will override the configured target database name
+     * 
+     * @var string
+     */
+    private $dbname = null;
 
     private $env = array();
 
@@ -51,6 +67,16 @@ class RequestSet
     public function setTokenAuth($tokenAuth)
     {
         $this->tokenAuth = $tokenAuth;
+    }
+    
+    public function setDbHost($dbhost)
+    {
+        $this->dbhost = $dbhost;
+    }
+
+    public function setDbName($dbname)
+    {
+        $this->dbname = $dbname;
     }
 
     public function getNumberOfRequests()
@@ -78,6 +104,24 @@ class RequestSet
         }
 
         return Common::getRequestVar('token_auth', false);
+    }
+
+    public function getDbHost()
+    {
+        if (!is_null($this->dbhost)) {
+            return $this->dbhost;
+        }
+
+        return Common::getRequestVar('dbhost', 'localhost'); // it may be better to do something better for default, if we could get the orig values before config was modified in memory that would be ideal.
+    }
+
+    public function getDbName()
+    {
+        if (!is_null($this->dbname)) {
+            return $this->dbname;
+        }
+
+        return Common::getRequestVar('dbname', 'matomo_dev');
     }
 
     private function areRequestsInitialized()
@@ -186,6 +230,8 @@ class RequestSet
             'requests'  => array(),
             'env'       => $this->getEnvironment(),
             'tokenAuth' => $this->getTokenAuth(),
+            'dbhost'    => $this->getDbHost(),
+            'dbname'    => $this->getDbName(),
             'time'      => time()
         );
 
@@ -202,6 +248,8 @@ class RequestSet
 
         $this->setEnvironment($state['env']);
         $this->setTokenAuth($state['tokenAuth']);
+        $this->setDbHost($state['dbhost']);
+        $this->setDbName($state['dbname']);
 
         $this->restoreEnvironment();
         $this->setRequests($state['requests']);
