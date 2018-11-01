@@ -77,10 +77,12 @@ try {
     // checks for alternate database host/name in request.
     $requestBody = json_decode(file_get_contents("php://input"));
     if(!is_null($requestBody->dbhost) && !is_null($requestBody->dbname)) {
-        Config::getInstance()->database["host"] = $requestBody->dbhost;
-        Config::getInstance()->database["dbname"] = $requestBody->dbname;
-        Config::getInstance()->database["username"] = getenv("MatomoDBUser");
-        Config::getInstance()->database["password"] = getenv("MatomoDBPass");
+        // Config::getInstance()->database["host"] = $requestBody->dbhost;
+        // Config::getInstance()->database["dbname"] = $requestBody->dbname;
+        // Config::getInstance()->database["username"] = getenv("MatomoDBUser");
+        // Config::getInstance()->database["password"] = getenv("MatomoDBPass");
+        $requestSet->setDbHost($requestBody->dbhost);
+        $requestSet->setDbName($requestBody->dbname);
     }
 
     $handler  = Handler\Factory::make();

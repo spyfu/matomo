@@ -24,7 +24,7 @@
     branch = master
 [submodule "plugins/QueuedTracking"]
     path = plugins/QueuedTracking
-    url = https://github.com/matomo-org/plugin-QueuedTracking.git
+	url = https://github.com/spyfu/plugin-QueuedTracking
     branch = master
 [submodule "tests/travis"]
     path = tests/travis

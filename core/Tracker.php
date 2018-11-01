@@ -216,7 +216,7 @@ class Tracker
         return self::$db;
     }
 
-    protected function disconnectDatabase()
+    public function disconnectDatabase()
     {
         if ($this->isDatabaseConnected()) { // note: I think we do this only for the tests
             self::$db->disconnect();
