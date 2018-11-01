@@ -22,33 +22,37 @@
     path = plugins/LoginHttpAuth
     url = https://github.com/matomo-org/plugin-LoginHttpAuth.git
     branch = master
+[submodule "plugins/QueuedTracking"]
+    path = plugins/QueuedTracking
+    url = https://github.com/spyfu/plugin-QueuedTracking.git
+    branch = master
 [submodule "tests/travis"]
     path = tests/travis
     url = https://github.com/matomo-org/travis-scripts.git
     branch = master
 [submodule "plugins/LogViewer"]
-	path = plugins/LogViewer
-	url = https://github.com/matomo-org/plugin-LogViewer.git
+    path = plugins/LogViewer
+    url = https://github.com/matomo-org/plugin-LogViewer.git
     branch = master
 [submodule "plugins/AnonymousPiwikUsageMeasurement"]
-	path = plugins/AnonymousPiwikUsageMeasurement
-	url = https://github.com/matomo-org/plugin-AnonymousPiwikUsageMeasurement.git
+    path = plugins/AnonymousPiwikUsageMeasurement
+    url = https://github.com/matomo-org/plugin-AnonymousPiwikUsageMeasurement.git
     branch = master
 [submodule "plugins/CustomDimensions"]
-	path = plugins/CustomDimensions
-	url = https://github.com/matomo-org/plugin-CustomDimensions.git
+    path = plugins/CustomDimensions
+    url = https://github.com/matomo-org/plugin-CustomDimensions.git
     branch = master
 [submodule "plugins/Bandwidth"]
-	path = plugins/Bandwidth
-	url = https://github.com/matomo-org/plugin-Bandwidth.git
+    path = plugins/Bandwidth
+    url = https://github.com/matomo-org/plugin-Bandwidth.git
     branch = master
 [submodule "plugins/LoginLdap"]
-	path = plugins/LoginLdap
-	url = https://github.com/matomo-org/plugin-LoginLdap.git
+    path = plugins/LoginLdap
+    url = https://github.com/matomo-org/plugin-LoginLdap.git
     branch = master
 [submodule "plugins/MarketingCampaignsReporting"]
-	path = plugins/MarketingCampaignsReporting
-	url = https://github.com/matomo-org/plugin-MarketingCampaignsReporting.git
+    path = plugins/MarketingCampaignsReporting
+    url = https://github.com/matomo-org/plugin-MarketingCampaignsReporting.git
     branch = master
 [submodule "plugins/Nacho"]
     path = plugins/Nacho
@@ -65,7 +69,7 @@
     url = https://github.com/matomo-org/matomo-log-analytics.git
     branch = master
 [submodule "plugins/Morpheus/icons"]
-	path = plugins/Morpheus/icons
-	url = https://github.com/matomo-org/matomo-icons.git
+    path = plugins/Morpheus/icons
+    url = https://github.com/matomo-org/matomo-icons.git
 
 # Note: do not add new plugin submodules here, but a few lines above
