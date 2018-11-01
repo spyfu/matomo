@@ -22,10 +22,6 @@
     path = plugins/LoginHttpAuth
     url = https://github.com/matomo-org/plugin-LoginHttpAuth.git
     branch = master
-[submodule "plugins/QueuedTracking"]
-    path = plugins/QueuedTracking
-	url = https://github.com/spyfu/plugin-QueuedTracking
-    branch = master
 [submodule "tests/travis"]
     path = tests/travis
     url = https://github.com/matomo-org/travis-scripts.git
