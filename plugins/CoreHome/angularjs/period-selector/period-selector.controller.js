@@ -123,7 +123,7 @@
                 } else if (hashDate === 'yesterday' || hashDate === formatDate(yesterday)) {
                     return 'yesterday'
                 } else {
-                    console.error('Cannot parse hash date for Nacho calendar presets')
+                    return 'custom'
                 }
             } else if (hashPeriod === 'month') {
                 return 'last month'
