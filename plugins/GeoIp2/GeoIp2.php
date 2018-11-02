@@ -20,6 +20,10 @@ class GeoIp2 extends \Piwik\Plugin
         return true;
     }
 
+    public function activate() {
+        LocationProvider::setCurrentProvider(\Piwik\Plugins\GeoIp2\LocationProvider\GeoIp2::ID);
+    }
+
     public function deactivate()
     {
         // switch to default provider if GeoIP2 provider was in use
