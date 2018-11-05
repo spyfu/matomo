@@ -48,7 +48,7 @@ class Get extends \Piwik\Plugin\Report
             'nb_actions',
             'max_actions'
         );
-        $this->subcategoryId = 'General_Overview';
+        //$this->subcategoryId = 'General_Overview';
         // Used to process metrics, not displayed/used directly
 //								'sum_visit_length',
 //								'nb_visits_converted',
