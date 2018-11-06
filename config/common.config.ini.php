@@ -11,6 +11,7 @@ live_visitor_profile_max_visits_to_aggregate = 1000
 enable_trusted_host_check = 0
 enable_auto_update = 0
 piwik_professional_support_ads_enabled = 0
+cors_domains[] = *
 
 [Tracker]
 debug_on_demand = 0
