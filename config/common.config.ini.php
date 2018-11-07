@@ -1,6 +1,7 @@
 ; <?php exit; ?> DO NOT REMOVE THIS LINE
 
 [General]
+session_save_handler = dbtable
 time_before_today_archive_considered_outdated = 2700
 scheduled_tasks_min_interval = 2700
 enable_browser_archiving_triggering = 0
