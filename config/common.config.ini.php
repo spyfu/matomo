@@ -1,8 +1,8 @@
 ; <?php exit; ?> DO NOT REMOVE THIS LINE
 
 [General]
-time_before_today_archive_considered_outdated = 3599
-scheduled_tasks_min_interval = 3599
+time_before_today_archive_considered_outdated = 2700
+scheduled_tasks_min_interval = 2700
 enable_browser_archiving_triggering = 0
 minimum_memory_limit = -1
 show_update_notification_to_superusers_only = 1
