@@ -25,6 +25,8 @@ class Model
         $bind = array_values($visitAction);
 
         $db = $this->getDb();
+        // Nacho test, reduce locking on single tracker
+        $db->query("SET SESSION tx_isolation = 'READ-COMMITTED'");
         $db->query($sql, $bind);
 
         $id = $db->lastInsertId();

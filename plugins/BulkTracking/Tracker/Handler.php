@@ -10,6 +10,7 @@
 namespace Piwik\Plugins\BulkTracking\Tracker;
 
 use Piwik\AuthResult;
+use Piwik\Db;
 use Piwik\Container\StaticContainer;
 use Piwik\Exception\InvalidRequestParameterException;
 use Piwik\Exception\UnexpectedWebsiteFoundException;
@@ -33,6 +34,9 @@ class Handler extends Tracker\Handler
         if ($this->isTransactionSupported()) {
             $this->beginTransaction();
         }
+        // Nacho, test reduce locking for bulk tracking
+        $db = $this->getDb();
+        $db->query("SET SESSION tx_isolation = 'READ-COMMITTED'");
     }
 
     public function onAllRequestsTracked(Tracker $tracker, RequestSet $requestSet)
