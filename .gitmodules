@@ -58,6 +58,10 @@
     path = plugins/Nacho
     url = https://github.com/spyfu/nacho-matomo.git
     branch = master
+[submodule "plugins/TagManager"]
+    path = plugins/TagManager
+    url = https://github.com/matomo-org/tag-manager.git
+    branch = master
 [submodule "misc/log-analytics"]
     path = misc/log-analytics
     url = https://github.com/matomo-org/matomo-log-analytics.git
