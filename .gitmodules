@@ -37,7 +37,6 @@
 [submodule "plugins/Morpheus/icons"]
     path = plugins/Morpheus/icons
     url = https://github.com/matomo-org/matomo-icons.git
-    branch = master
 [submodule "plugins/Nacho"]
     path = plugins/Nacho
     url = https://github.com/spyfu/nacho-matomo.git
