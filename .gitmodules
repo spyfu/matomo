@@ -1,50 +1,30 @@
-[submodule "plugins/SecurityInfo"]
-    path = plugins/SecurityInfo
-    url = https://github.com/matomo-org/plugin-SecurityInfo.git
-    branch = master
-[submodule "plugins/TreemapVisualization"]
-    path = plugins/TreemapVisualization
-    url = https://github.com/matomo-org/plugin-TreemapVisualization.git
-    branch = master
-[submodule "plugins/VisitorGenerator"]
-    path = plugins/VisitorGenerator
-    url = https://github.com/matomo-org/plugin-VisitorGenerator.git
-    branch = master
-[submodule "plugins/CustomAlerts"]
-    path = plugins/CustomAlerts
-    url = https://github.com/matomo-org/plugin-CustomAlerts.git
-    branch = master
-[submodule "plugins/TasksTimetable"]
-    path = plugins/TasksTimetable
-    url = https://github.com/matomo-org/plugin-TasksTimetable.git
-    branch = master
-[submodule "plugins/LoginHttpAuth"]
-    path = plugins/LoginHttpAuth
-    url = https://github.com/matomo-org/plugin-LoginHttpAuth.git
-    branch = master
-[submodule "plugins/QueuedTracking"]
-    path = plugins/QueuedTracking
-    url = https://github.com/spyfu/plugin-QueuedTracking.git
-    branch = master
-[submodule "tests/travis"]
-    path = tests/travis
-    url = https://github.com/matomo-org/travis-scripts.git
-    branch = master
-[submodule "plugins/LogViewer"]
-    path = plugins/LogViewer
-    url = https://github.com/matomo-org/plugin-LogViewer.git
+[submodule "misc/log-analytics"]
+    path = misc/log-analytics
+    url = https://github.com/matomo-org/matomo-log-analytics.git
     branch = master
 [submodule "plugins/AnonymousPiwikUsageMeasurement"]
     path = plugins/AnonymousPiwikUsageMeasurement
     url = https://github.com/matomo-org/plugin-AnonymousPiwikUsageMeasurement.git
     branch = master
+[submodule "plugins/Bandwidth"]
+    path = plugins/Bandwidth
+    url = https://github.com/matomo-org/plugin-Bandwidth.git
+    branch = master
+[submodule "plugins/CustomAlerts"]
+    path = plugins/CustomAlerts
+    url = https://github.com/matomo-org/plugin-CustomAlerts.git
+    branch = master
 [submodule "plugins/CustomDimensions"]
     path = plugins/CustomDimensions
     url = https://github.com/matomo-org/plugin-CustomDimensions.git
     branch = master
-[submodule "plugins/Bandwidth"]
-    path = plugins/Bandwidth
-    url = https://github.com/matomo-org/plugin-Bandwidth.git
+[submodule "plugins/LogViewer"]
+    path = plugins/LogViewer
+    url = https://github.com/matomo-org/plugin-LogViewer.git
+    branch = master
+[submodule "plugins/LoginHttpAuth"]
+    path = plugins/LoginHttpAuth
+    url = https://github.com/matomo-org/plugin-LoginHttpAuth.git
     branch = master
 [submodule "plugins/LoginLdap"]
     path = plugins/LoginLdap
@@ -54,19 +34,39 @@
     path = plugins/MarketingCampaignsReporting
     url = https://github.com/matomo-org/plugin-MarketingCampaignsReporting.git
     branch = master
+[submodule "plugins/Morpheus/icons"]
+    path = plugins/Morpheus/icons
+    url = https://github.com/matomo-org/matomo-icons.git
+    branch = master
 [submodule "plugins/Nacho"]
     path = plugins/Nacho
     url = https://github.com/spyfu/nacho-matomo.git
+    branch = master
+[submodule "plugins/QueuedTracking"]
+    path = plugins/QueuedTracking
+    url = https://github.com/spyfu/plugin-QueuedTracking.git
+    branch = master
+[submodule "plugins/SecurityInfo"]
+    path = plugins/SecurityInfo
+    url = https://github.com/matomo-org/plugin-SecurityInfo.git
     branch = master
 [submodule "plugins/TagManager"]
     path = plugins/TagManager
     url = https://github.com/matomo-org/tag-manager.git
     branch = master
-[submodule "misc/log-analytics"]
-    path = misc/log-analytics
-    url = https://github.com/matomo-org/matomo-log-analytics.git
+[submodule "plugins/TasksTimetable"]
+    path = plugins/TasksTimetable
+    url = https://github.com/matomo-org/plugin-TasksTimetable.git
     branch = master
-[submodule "plugins/Morpheus/icons"]
-    path = plugins/Morpheus/icons
-    url = https://github.com/matomo-org/matomo-icons.git
+[submodule "plugins/TreemapVisualization"]
+    path = plugins/TreemapVisualization
+    url = https://github.com/matomo-org/plugin-TreemapVisualization.git
+    branch = master
+[submodule "plugins/VisitorGenerator"]
+    path = plugins/VisitorGenerator
+    url = https://github.com/matomo-org/plugin-VisitorGenerator.git
+    branch = master
+[submodule "tests/travis"]
+    path = tests/travis
+    url = https://github.com/matomo-org/travis-scripts.git
     branch = master
