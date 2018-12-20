@@ -194,40 +194,40 @@ class LogAggregator
     protected function getVisitsMetricFields()
     {
         return array(
-            Metrics::INDEX_NB_UNIQ_VISITORS               => "count(distinct " . self::LOG_VISIT_TABLE . ".idvisitor)",
-            Metrics::INDEX_NB_UNIQ_FINGERPRINTS           => "count(distinct " . self::LOG_VISIT_TABLE . ".config_id)",
-            Metrics::INDEX_NB_VISITS                      => "count(*)",
-            Metrics::INDEX_NB_ACTIONS                     => "sum(" . self::LOG_VISIT_TABLE . ".visit_total_actions)",
+            Metrics::INDEX_NB_UNIQ_VISITORS               => "count(distinct " . self::LOG_VISIT_TABLE . ".idvisitor) * 10",
+            Metrics::INDEX_NB_UNIQ_FINGERPRINTS           => "count(distinct " . self::LOG_VISIT_TABLE . ".config_id) * 10",
+            Metrics::INDEX_NB_VISITS                      => "count(*) * 10",
+            Metrics::INDEX_NB_ACTIONS                     => "sum(" . self::LOG_VISIT_TABLE . ".visit_total_actions) * 10",
             Metrics::INDEX_MAX_ACTIONS                    => "max(" . self::LOG_VISIT_TABLE . ".visit_total_actions)",
-            Metrics::INDEX_SUM_VISIT_LENGTH               => "sum(" . self::LOG_VISIT_TABLE . ".visit_total_time)",
-            Metrics::INDEX_BOUNCE_COUNT                   => "sum(case " . self::LOG_VISIT_TABLE . ".visit_total_actions when 1 then 1 when 0 then 1 else 0 end)",
-            Metrics::INDEX_NB_VISITS_CONVERTED            => "sum(case " . self::LOG_VISIT_TABLE . ".visit_goal_converted when 1 then 1 else 0 end)",
-            Metrics::INDEX_NB_USERS                       => "count(distinct " . self::LOG_VISIT_TABLE . ".user_id)",
+            Metrics::INDEX_SUM_VISIT_LENGTH               => "sum(" . self::LOG_VISIT_TABLE . ".visit_total_time) * 10",
+            Metrics::INDEX_BOUNCE_COUNT                   => "sum(case " . self::LOG_VISIT_TABLE . ".visit_total_actions when 1 then 1 when 0 then 1 else 0 end) * 10",
+            Metrics::INDEX_NB_VISITS_CONVERTED            => "sum(case " . self::LOG_VISIT_TABLE . ".visit_goal_converted when 1 then 1 else 0 end) * 10",
+            Metrics::INDEX_NB_USERS                       => "count(distinct " . self::LOG_VISIT_TABLE . ".user_id) * 10",
         );
     }
 
     public static function getConversionsMetricFields()
     {
         return array(
-            Metrics::INDEX_GOAL_NB_CONVERSIONS             => "count(*)",
-            Metrics::INDEX_GOAL_NB_VISITS_CONVERTED        => "count(distinct " . self::LOG_CONVERSION_TABLE . ".idvisit)",
+            Metrics::INDEX_GOAL_NB_CONVERSIONS             => "count(*) * 10",
+            Metrics::INDEX_GOAL_NB_VISITS_CONVERTED        => "count(distinct " . self::LOG_CONVERSION_TABLE . ".idvisit) * 10",
             Metrics::INDEX_GOAL_REVENUE                    => self::getSqlConversionRevenueSum(self::TOTAL_REVENUE_FIELD),
             Metrics::INDEX_GOAL_ECOMMERCE_REVENUE_SUBTOTAL => self::getSqlConversionRevenueSum(self::REVENUE_SUBTOTAL_FIELD),
             Metrics::INDEX_GOAL_ECOMMERCE_REVENUE_TAX      => self::getSqlConversionRevenueSum(self::REVENUE_TAX_FIELD),
             Metrics::INDEX_GOAL_ECOMMERCE_REVENUE_SHIPPING => self::getSqlConversionRevenueSum(self::REVENUE_SHIPPING_FIELD),
             Metrics::INDEX_GOAL_ECOMMERCE_REVENUE_DISCOUNT => self::getSqlConversionRevenueSum(self::REVENUE_DISCOUNT_FIELD),
-            Metrics::INDEX_GOAL_ECOMMERCE_ITEMS            => "SUM(" . self::LOG_CONVERSION_TABLE . "." . self::ITEMS_COUNT_FIELD . ")",
+            Metrics::INDEX_GOAL_ECOMMERCE_ITEMS            => "SUM(" . self::LOG_CONVERSION_TABLE . "." . self::ITEMS_COUNT_FIELD . ") * 10",
         );
     }
 
     private static function getSqlConversionRevenueSum($field)
     {
-        return self::getSqlRevenue('SUM(' . self::LOG_CONVERSION_TABLE . '.' . $field . ')');
+        return self::getSqlRevenue('SUM(' . self::LOG_CONVERSION_TABLE . '.' . $field . ') * 10');
     }
 
     public static function getSqlRevenue($field)
     {
-        return "ROUND(" . $field . "," . GoalManager::REVENUE_PRECISION . ")";
+        return "ROUND(" . $field . "," . GoalManager::REVENUE_PRECISION . ")"; // not multiplying here as it doubles revenue
     }
 
     /**
@@ -738,9 +738,9 @@ class LogAggregator
     protected function getActionsMetricFields()
     {
         return array(
-            Metrics::INDEX_NB_VISITS        => "count(distinct " . self::LOG_ACTIONS_TABLE . ".idvisit)",
-            Metrics::INDEX_NB_UNIQ_VISITORS => "count(distinct " . self::LOG_ACTIONS_TABLE . ".idvisitor)",
-            Metrics::INDEX_NB_ACTIONS       => "count(*)",
+            Metrics::INDEX_NB_VISITS        => "count(distinct " . self::LOG_ACTIONS_TABLE . ".idvisit) * 10",
+            Metrics::INDEX_NB_UNIQ_VISITORS => "count(distinct " . self::LOG_ACTIONS_TABLE . ".idvisitor) * 10",
+            Metrics::INDEX_NB_ACTIONS       => "count(*) * 10",
         );
     }
 
@@ -895,7 +895,7 @@ class LogAggregator
             // extra condition for the SQL SELECT that makes sure only returning visits are counted
             // when creating the 'days since last visit' report
             $extraCondition = 'and log_visit.visitor_returning = 1';
-            $extraSelect    = "sum(case when log_visit.visitor_returning = 0 then 1 else 0 end) "
+            $extraSelect    = "sum(case when log_visit.visitor_returning = 0 then 1 else 0 end) * 10"
                             . " as `" . $selectColumnPrefix . 'General_NewVisits' . "`";
             $selects[] = $extraSelect;
         }
@@ -908,12 +908,12 @@ class LogAggregator
                 $selectAs = "$selectColumnPrefix$lowerBound-$upperBound";
 
                 $selects[] = "sum(case when $table.$column between $lowerBound and $upperBound $extraCondition" .
-                             " then 1 else 0 end) as `$selectAs`";
+                             " then 1 else 0 end) * 10 as `$selectAs`";
             } else {
                 $lowerBound = $gap[0];
 
                 $selectAs  = $selectColumnPrefix . ($lowerBound + 1) . urlencode('+');
-                $selects[] = "sum(case when $table.$column > $lowerBound $extraCondition then 1 else 0 end) as `$selectAs`";
+                $selects[] = "sum(case when $table.$column > $lowerBound $extraCondition then 1 else 0 end) * 10 as `$selectAs`";
             }
         }
 

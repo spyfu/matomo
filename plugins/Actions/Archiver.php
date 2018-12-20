@@ -280,7 +280,7 @@ class Archiver extends \Piwik\Plugin\Archiver
                 count(distinct log_visit.idvisitor) as `" . PiwikMetrics::INDEX_PAGE_ENTRY_NB_UNIQ_VISITORS . "`,
                 count(*) as `" . PiwikMetrics::INDEX_PAGE_ENTRY_NB_VISITS . "`,
                 sum(log_visit.visit_total_actions) as `" . PiwikMetrics::INDEX_PAGE_ENTRY_NB_ACTIONS . "`,
-                sum(log_visit.visit_total_time) as `" . PiwikMetrics::INDEX_PAGE_ENTRY_SUM_VISIT_LENGTH . "`,
+                sum(log_visit.visit_total_time)  as `" . PiwikMetrics::INDEX_PAGE_ENTRY_SUM_VISIT_LENGTH . "`,
                 sum(case log_visit.visit_total_actions when 1 then 1 when 0 then 1 else 0 end) as `" . PiwikMetrics::INDEX_PAGE_ENTRY_BOUNCE_COUNT . "`";
 
         $where  = $this->getLogAggregator()->getWhereStatement('log_visit', 'visit_last_action_time');
@@ -323,8 +323,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         }
 
         $select = "log_visit.%s as idaction, $extraSelects
-                count(distinct log_visit.idvisitor) as `" . PiwikMetrics::INDEX_PAGE_EXIT_NB_UNIQ_VISITORS . "`,
-                count(*) as `" . PiwikMetrics::INDEX_PAGE_EXIT_NB_VISITS . "`";
+                count(distinct log_visit.idvisitor) * 10 as `" . PiwikMetrics::INDEX_PAGE_EXIT_NB_UNIQ_VISITORS . "`,
+                count(*) * 10 as `" . PiwikMetrics::INDEX_PAGE_EXIT_NB_VISITS . "`";
 
         $where  = $this->getLogAggregator()->getWhereStatement('log_visit', 'visit_last_action_time');
         $where .= " AND log_visit.%s > 0";
@@ -366,7 +366,7 @@ class Archiver extends \Piwik\Plugin\Archiver
         }
 
         $select = "log_link_visit_action.%s as idaction, $extraSelects
-                sum(log_link_visit_action.time_spent_ref_action) as `" . PiwikMetrics::INDEX_PAGE_SUM_TIME_SPENT . "`";
+                sum(log_link_visit_action.time_spent_ref_action) * 10 as `" . PiwikMetrics::INDEX_PAGE_SUM_TIME_SPENT . "`";
 
         $where = $this->getLogAggregator()->getWhereStatement('log_link_visit_action', 'server_time');
         $where .= " AND log_link_visit_action.time_spent_ref_action > 0
@@ -400,8 +400,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         $this->insertTable($dataTable, self::PAGE_URLS_RECORD_NAME);
 
         $records = array(
-            self::METRIC_PAGEVIEWS_RECORD_NAME      => array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS)),
-            self::METRIC_UNIQ_PAGEVIEWS_RECORD_NAME => array_sum($dataTable->getColumn(PiwikMetrics::INDEX_NB_VISITS)),
+            self::METRIC_PAGEVIEWS_RECORD_NAME      => array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS)) * 10,
+            self::METRIC_UNIQ_PAGEVIEWS_RECORD_NAME => array_sum($dataTable->getColumn(PiwikMetrics::INDEX_NB_VISITS)) * 10,
             self::METRIC_SUM_TIME_RECORD_NAME       => array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_SUM_TIME_GENERATION)),
             self::METRIC_HITS_TIMED_RECORD_NAME     => array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS_WITH_TIME_GENERATION))
         );
@@ -429,8 +429,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         $dataTable = $this->getDataTable(Action::TYPE_DOWNLOAD);
         $this->insertTable($dataTable, self::DOWNLOADS_RECORD_NAME);
 
-        $this->getProcessor()->insertNumericRecord(self::METRIC_DOWNLOADS_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS)));
-        $this->getProcessor()->insertNumericRecord(self::METRIC_UNIQ_DOWNLOADS_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_NB_VISITS)));
+        $this->getProcessor()->insertNumericRecord(self::METRIC_DOWNLOADS_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS)) * 10);
+        $this->getProcessor()->insertNumericRecord(self::METRIC_UNIQ_DOWNLOADS_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_NB_VISITS)) * 10);
     }
 
     protected function insertOutlinksReports()
@@ -438,8 +438,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         $dataTable = $this->getDataTable(Action::TYPE_OUTLINK);
         $this->insertTable($dataTable, self::OUTLINKS_RECORD_NAME);
 
-        $this->getProcessor()->insertNumericRecord(self::METRIC_OUTLINKS_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS)));
-        $this->getProcessor()->insertNumericRecord(self::METRIC_UNIQ_OUTLINKS_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_NB_VISITS)));
+        $this->getProcessor()->insertNumericRecord(self::METRIC_OUTLINKS_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS)) * 10);
+        $this->getProcessor()->insertNumericRecord(self::METRIC_UNIQ_OUTLINKS_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_NB_VISITS)) * 10);
     }
 
     protected function insertPageTitlesReports()
@@ -454,8 +454,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         $this->deleteUnusedColumnsFromKeywordsDataTable($dataTable);
         $this->insertTable($dataTable, self::SITE_SEARCH_RECORD_NAME);
 
-        $this->getProcessor()->insertNumericRecord(self::METRIC_SEARCHES_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS)));
-        $this->getProcessor()->insertNumericRecord(self::METRIC_KEYWORDS_RECORD_NAME, $dataTable->getRowsCount());
+        $this->getProcessor()->insertNumericRecord(self::METRIC_SEARCHES_RECORD_NAME, array_sum($dataTable->getColumn(PiwikMetrics::INDEX_PAGE_NB_HITS)) * 10);
+        $this->getProcessor()->insertNumericRecord(self::METRIC_KEYWORDS_RECORD_NAME, $dataTable->getRowsCount() * 10);
     }
 
     protected function deleteUnusedColumnsFromKeywordsDataTable(DataTable $dataTable)

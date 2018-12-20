@@ -36,7 +36,7 @@ class LogAggregator
 
     public function aggregateNumEntriesPerStep($idFunnel)
     {
-        $select = sprintf('log_funnel.step_position as label, count(log_funnel.idfunnel) as %s', Metrics::NUM_STEP_ENTRIES);
+        $select = sprintf('log_funnel.step_position as label, count(log_funnel.idfunnel) * 10 as %s', Metrics::NUM_STEP_ENTRIES);
         $where = 'log_funnel.min_step = log_funnel.step_position';
         $groupBy = 'log_funnel.step_position';
 
@@ -45,7 +45,7 @@ class LogAggregator
 
     public function aggregateNumExitsPerStep($idFunnel)
     {
-        $select = sprintf('log_funnel.step_position as label, count(log_funnel.idfunnel) as %s', Metrics::NUM_STEP_EXITS);
+        $select = sprintf('log_funnel.step_position as label, count(log_funnel.idfunnel) * 10 as %s', Metrics::NUM_STEP_EXITS);
         $where = 'log_funnel.max_step = log_funnel.step_position';
         $groupBy = 'log_funnel.step_position';
 
@@ -54,7 +54,7 @@ class LogAggregator
 
     public function aggregateNumHitsPerStep($idFunnel)
     {
-        $select = sprintf('log_funnel.step_position as label, count(log_funnel.idfunnel) as %s', Metrics::NUM_STEP_VISITS_ACTUAL);
+        $select = sprintf('log_funnel.step_position as label, count(log_funnel.idfunnel) * 10 as %s', Metrics::NUM_STEP_VISITS_ACTUAL);
         $where = '';
         $groupBy = 'log_funnel.step_position';
 
@@ -65,7 +65,7 @@ class LogAggregator
     {
         $select = sprintf('log_funnel.step_position as label, 
                            ifnull(log_action.name, if(log_funnel.idaction_prev = 0, \'%s\',\'%s\')) as sublabel, 
-                           count(log_funnel.idfunnel) as %s',
+                           count(log_funnel.idfunnel) * 10 as %s',
                            Archiver::LABEL_VISIT_ENTRY,
                            Archiver::LABEL_NOT_DEFINED,
                            Metrics::NUM_HITS);
@@ -77,7 +77,7 @@ class LogAggregator
     {
         $select = sprintf('log_funnel.step_position as label, 
                            ifnull(log_action.name, if(log_funnel.idaction_next is null, \'%s\',\'%s\')) as sublabel, 
-                           count(log_funnel.idfunnel) as %s',
+                           count(log_funnel.idfunnel) * 10 as %s',
                            Archiver::LABEL_VISIT_EXIT,
                            Archiver::LABEL_NOT_DEFINED,
                            Metrics::NUM_HITS);
@@ -118,7 +118,7 @@ class LogAggregator
         $select = sprintf('log_funnel.step_position as label, 
                            log_visit.referer_type as referer_type, 
                            %s as sublabel, 
-                           count(log_funnel.idfunnel) as %s',
+                           count(log_funnel.idfunnel) * 10 as %s',
                           $switchRef,
                           Metrics::NUM_HITS);
 

@@ -197,7 +197,7 @@ class QueryBuilder
 
                 // we need to make sure that the query uses the newly joined table and the correct column...
                 $metricQuery = str_replace($dbColumn, $join->getTargetColumn(), $metric->getQuery());
-                $select = str_replace($tableName . '.', $tableAlias . '.', $metricQuery) . " AS '" . $metricName . "'";
+                $select = str_replace($tableName . '.', $tableAlias . '.', $metricQuery) . " * 10 AS '" . $metricName . "'";
                 $this->reportQuery->addSelect($select);
                 $where = $tableAlias . '.' . $dbDiscriminator->getColumn() . ' = "' . $dbDiscriminatorValue . '"';
                 $this->reportQuery->addWhere($where);
@@ -209,7 +209,7 @@ class QueryBuilder
                 // we support for now only numeric values because we cannot use bind here as it would not be possible to position bind correctly
                 $where = $actualTableName . '.' . $dbDiscriminator->getColumn() . ' = "' . $dbDiscriminatorValue . '"';
                 $this->reportQuery->addWhere($where);
-                $this->reportQuery->addSelect($metric->getQuery() . " AS '" . $metricName . "'");
+                $this->reportQuery->addSelect($metric->getQuery() . " * 10  AS '" . $metricName . "'");
 
             } elseif ($this->reportQuery->isTableJoinable($dbDiscriminatorTable)) {
 
@@ -223,14 +223,14 @@ class QueryBuilder
                 // we support for now only numeric values because we cannot use bind here as it would not be possible to position bind correctly
                 $where = $actualTableName . '.' . $dbDiscriminator->getColumn() . ' = "' . $dbDiscriminatorValue . '"';
                 $this->reportQuery->addWhere($where);
-                $this->reportQuery->addSelect($metric->getQuery() . " AS '" . $metricName . "'");
+                $this->reportQuery->addSelect($metric->getQuery() . " * 10 AS '" . $metricName . "'");
             } else {
                 Log::debug(sprintf('Cannot select metric %s because not supported discriminator table?!?', $metricName));
                 return;
             }
 
         } else {
-            $this->reportQuery->addSelect($metric->getQuery() . " AS '" . $metricName . "'");
+            $this->reportQuery->addSelect($metric->getQuery() . " * 10 AS '" . $metricName . "'");
         }
 
         $this->hasMetric = true;

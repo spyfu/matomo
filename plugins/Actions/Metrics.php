@@ -50,15 +50,15 @@ class Metrics
         $metricsConfig = array(
             PiwikMetrics::INDEX_NB_VISITS => array(
                 'aggregation' => 'sum',
-                'query' => "count(distinct log_link_visit_action.idvisit)"
+                'query' => "count(distinct log_link_visit_action.idvisit) * 10"
             ),
             PiwikMetrics::INDEX_NB_UNIQ_VISITORS => array(
                 'aggregation' => false,
-                'query' => "count(distinct log_link_visit_action.idvisitor)"
+                'query' => "count(distinct log_link_visit_action.idvisitor) * 10"
             ),
             PiwikMetrics::INDEX_PAGE_NB_HITS => array(
                 'aggregation' => 'sum',
-                'query' => "count(*)"
+                'query' => "count(*) * 10"
             ),
             PiwikMetrics::INDEX_PAGE_SUM_TIME_GENERATION => array(
                 'aggregation' => 'sum',

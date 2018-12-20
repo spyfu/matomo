@@ -12,6 +12,7 @@ use Piwik\DataTable;
 use Piwik\Metrics;
 use Piwik\Plugins\Actions\ArchivingHelper;
 use Piwik\RankingQuery;
+use Piwik\Log;
 
 /**
  * Processing reports for Contents
@@ -74,14 +75,15 @@ class Archiver extends \Piwik\Plugin\Archiver
 
     private function aggregateDayImpressions()
     {
+        Log::debug("yolo");
         $select = "
                 log_action_content_piece.name as contentPiece,
                 log_action_content_target.name as contentTarget,
                 log_action_content_name.name as contentName,
 
-				count(distinct log_link_visit_action.idvisit) as `" . Metrics::INDEX_NB_VISITS . "`,
-				count(distinct log_link_visit_action.idvisitor) as `" . Metrics::INDEX_NB_UNIQ_VISITORS . "`,
-				count(*) as `" . Metrics::INDEX_CONTENT_NB_IMPRESSIONS . "`
+				count(distinct log_link_visit_action.idvisit) * 10 as `" . Metrics::INDEX_NB_VISITS . "`,
+				count(distinct log_link_visit_action.idvisitor) * 10 as `" . Metrics::INDEX_NB_UNIQ_VISITORS . "`,
+				count(*) * 10 as `" . Metrics::INDEX_CONTENT_NB_IMPRESSIONS . "`
         ";
 
         $from = array(
