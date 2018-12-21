@@ -64,6 +64,9 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
     /** @var Setting */
     public $ecommerce;
 
+    /** @var Setting */
+    public $multiplier;
+
     /**
      * @var SitesManager\API
      */
@@ -119,6 +122,7 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
         $this->excludedIps = $this->makeExcludeIps();
         $this->excludedParameters = $this->makeExcludedParameters();
         $this->excludedUserAgents = $this->makeExcludedUserAgents();
+        $this->multiplier = $this->makeMultiplier();
 
         /**
          * SiteSearch
@@ -147,6 +151,15 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
                 . '<br />'
                 . Piwik::translate('SitesManager_OnlyMatchedUrlsAllowedHelpExamples');
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
+        });
+    }
+
+    private function makeMultiplier()
+    {
+        return $this->makeProperty('multiplier', $default = 1, FieldConfig::TYPE_INT, function (FieldConfig $field) {
+            $field->title = "Multiplier";
+            $field->inlineHelp = "Multiplier for raw metrics during archive";
+            $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
         });
     }
 

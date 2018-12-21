@@ -576,6 +576,7 @@ class API extends \Piwik\Plugin\API
      * @see getKeepURLFragmentsGlobal.
      * @param string $type The website type, defaults to "website" if not set.
      * @param bool|null $excludeUnknownUrls Track only URL matching one of website URLs
+     * @param int $multiplier The multiplier for this site, defaults to 1
      *
      * @return int the website ID created
      */
@@ -595,7 +596,8 @@ class API extends \Piwik\Plugin\API
                             $keepURLFragments = null,
                             $type = null,
                             $settingValues = null,
-                            $excludeUnknownUrls = null)
+                            $excludeUnknownUrls = null,
+                            $multiplier = 1)
     {
         Piwik::checkUserHasSuperUserAccess();
 
@@ -617,6 +619,7 @@ class API extends \Piwik\Plugin\API
         $coreProperties = $this->setSettingValue('excluded_ips', explode(',', $excludedIps), $coreProperties, $settingValues);
         $coreProperties = $this->setSettingValue('excluded_parameters', explode(',', $excludedQueryParameters), $coreProperties, $settingValues);
         $coreProperties = $this->setSettingValue('excluded_user_agents', explode(',', $excludedUserAgents), $coreProperties, $settingValues);
+        $coreProperties = $this->setSettingValue('multiplier', $multiplier, $coreProperties, $settingValues);
 
         $timezone = trim($timezone);
         if (empty($timezone)) {
@@ -1210,6 +1213,7 @@ class API extends \Piwik\Plugin\API
      * @param string $type The Website type, default value is "website"
      * @param array|null $settingValues JSON serialized settings eg {settingName: settingValue, ...}
      * @param bool|null $excludeUnknownUrls Track only URL matching one of website URLs
+     * @param int $multiplier Multiplier for site data, defaults to 1
      * @throws Exception
      * @see getKeepURLFragmentsGlobal. If null, the existing value will
      *                                   not be modified.
@@ -1233,7 +1237,8 @@ class API extends \Piwik\Plugin\API
                                $keepURLFragments = null,
                                $type = null,
                                $settingValues = null,
-                               $excludeUnknownUrls = null)
+                               $excludeUnknownUrls = null,
+                               $multiplier = 1)
     {
         Piwik::checkUserHasAdminAccess($idSite);
 
@@ -1270,6 +1275,7 @@ class API extends \Piwik\Plugin\API
         $coreProperties = $this->setSettingValue('excluded_ips', explode(',', $excludedIps), $coreProperties, $settingValues);
         $coreProperties = $this->setSettingValue('excluded_parameters', explode(',', $excludedQueryParameters), $coreProperties, $settingValues);
         $coreProperties = $this->setSettingValue('excluded_user_agents', explode(',', $excludedUserAgents), $coreProperties, $settingValues);
+        $coreProperties = $this->setSettingValue('multiplier', $multiplier, $coreProperties, $settingValues);
 
         if (isset($currency)) {
             $currency = trim($currency);
@@ -1292,6 +1298,10 @@ class API extends \Piwik\Plugin\API
 
         if (isset($type)) {
             $bind['type'] = $this->checkAndReturnType($type);
+        }
+
+        if (isset($multiplier)) {
+            $bind['multiplier'] = $multiplier;
         }
 
         if (!empty($coreProperties)) {

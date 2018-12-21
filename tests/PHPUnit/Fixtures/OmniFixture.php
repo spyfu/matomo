@@ -174,7 +174,8 @@ class OmniFixture extends Fixture
                 'excludedUserAgents' => $properties['excluded_user_agents'],
                 'keepURLFragments' => $properties['keep_url_fragment'],
                 'type' => $properties['type'],
-                'excludeUnknownUrls' => $properties['exclude_unknown_urls']
+                'excludeUnknownUrls' => $properties['exclude_unknown_urls'],
+                'multiplier' => $properties['multiplier']
             ));
         }
     }

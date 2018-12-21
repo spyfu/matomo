@@ -43,6 +43,7 @@ class Updates_0_6_rc1 extends Updates
             $this->migration->db->sql('UPDATE ' . Common::prefixTable('site') . ' SET `currency` = "' . $defaultCurrency . '";', Migration\Db::ERROR_CODE_DUPLICATE_COLUMN),
             $this->migration->db->addColumn('site', 'excluded_ips', 'TEXT NOT NULL', 'currency'),
             $this->migration->db->addColumn('site', 'excluded_parameters', 'VARCHAR( 255 ) NOT NULL', 'excluded_ips'),
+            $this->migration->db->addColumn('site', 'multipliers', 'INT', 'keep_url_fragment'),
             $this->migration->db->addIndex('log_visit', array('idsite', 'visit_last_action_time', 'config_md5config(8)'), 'index_idsite_datetime_config'),
             $this->migration->db->addIndex('log_visit', array('idsite', 'idvisit')),
             $this->migration->db->dropIndex('log_conversion', 'index_idsite_date'),

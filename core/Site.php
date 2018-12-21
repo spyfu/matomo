@@ -328,6 +328,17 @@ class Site
     }
 
     /**
+     * Returns the multiplier of the site.
+     * 
+     * @return int
+     * @throws Exception if data for the site cannot be found.
+     */
+    public function getMultiplier()
+    {
+        return $this->get('multiplier');
+    }
+
+    /**
      * Returns the excluded query parameters of the site.
      *
      * @return string
@@ -624,6 +635,17 @@ class Site
     public static function getExcludedIpsFor($idsite)
     {
         return self::getFor($idsite, 'excluded_ips');
+    }
+
+    /**
+     * Returns the multiplier of the site with the specified ID.
+     * 
+     * @param int $idsite The site ID.
+     * @return int
+     */
+    public static function getMultiplierFor($idsite)
+    {
+        return self::getFor($idsite, 'multiplier');
     }
 
     /**
